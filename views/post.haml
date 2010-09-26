@@ -1,0 +1,15 @@
+%li
+  %span.date= post[:date]
+  %span.title= post[:title]
+  %links
+    %a.reply{:href => "?rt=#{post[:id]}"}
+      [reply]
+  - if current(post)
+    %br/
+    %form{:method => "post", :action => "/"}
+      %input{:type => "text", :name => "title"}
+      %input{:type => "submit", :value => "add"}
+  - if children.count > 0
+    %li
+      - children.each do |p|
+        = display(p)
