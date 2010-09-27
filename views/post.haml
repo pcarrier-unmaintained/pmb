@@ -3,7 +3,7 @@
     = post[:date]
   %span.title= post[:title]
   %a{:href => "/del/#{post[:id]}", :title => 'delete'}
-    ￩
+    <-
   - if current(post)
     %form{:method => 'post', :action => '/'}
       %input{:type => 'text', :name => 'title', :id => 'input'}
@@ -11,7 +11,7 @@
       %input{:type => 'submit', :value => 'add', :id => 'send'}
   - else
     %a{:href => "?rt=#{post[:id]}", :title => 'reply'}
-      ￬
+      \...
   - if children.count > 0
     %ul
       - children.each do |p|
