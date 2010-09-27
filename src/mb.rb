@@ -5,7 +5,8 @@ require 'sequel'
 require 'sinatra/base'
 require 'haml'
 
-DB = Sequel.sqlite('db.sqlite3')
+DB = Sequel.connect(ENV['DATABASE_URL'] || 'sqlite://my.db')
+
 DB.create_table? :posts do
   primary_key :id
   String :title
