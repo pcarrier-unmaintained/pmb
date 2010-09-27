@@ -14,10 +14,13 @@
       \#license{color:#888;border-top:1px solid #888;padding-top:2px;}
       a,a:visited{color:#f00;text-decoration:none;}
       \.title{border-bottom:1px dotted #800;}
+      \.deleted{text-decoration: line-through; color: #aaa;}
   %body
     %h1 pmb
     %ul
       = display(root)
+    %a{:href => '/?archives=1'}
+      archives
     %pre#license~ "Copyright (c) 2010, Pierre Carrier <perso@gcarrier.fr>\nPermission to use, copy, modify, and/or distribute this software for any\npurpose with or without fee is hereby granted, provided that the above\ncopyright notice and this permission notice appear in all copies."
     %script{:type => 'text/javascript'}
       document.getElementById('input').focus();

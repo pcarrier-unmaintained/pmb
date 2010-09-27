@@ -1,7 +1,10 @@
 %li
   .date
     = post[:date]
-  %span.title= post[:title]
+  - if post[:deleted]
+    %span.deleted= post[:title]
+  - else
+    %span.title= post[:title]
   %a{:href => "/del/#{post[:id]}", :title => 'delete'}
     [x]
   - if current(post)

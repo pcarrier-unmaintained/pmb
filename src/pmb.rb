@@ -13,6 +13,7 @@ DB.create_table? :posts do
   DateTime :date
   foreign_key :parent_id, :posts
   index :date
+  TrueClass :deleted
 end
 
 DB[:posts].insert(:title => "mb created", :date => DateTime.now, :parent_id => nil) unless DB[:posts].count > 0
@@ -20,9 +21,11 @@ DB[:posts].insert(:title => "mb created", :date => DateTime.now, :parent_id => n
 class PrivateMicroBlog < Sinatra::Base
   helpers do
     def display(post)
+      children = DB[:posts].where(:parent_id => post[:id]).order(:date.desc)
+      children = children.where(:deleted => false) unless params[:archives]
       haml :post, :locals => {
         :post => post,
-        :children => DB[:posts].where(:parent_id => post[:id]).order(:date.desc)
+        :children => children
       }
     end
     def current(post)
@@ -38,7 +41,8 @@ class PrivateMicroBlog < Sinatra::Base
   post '/' do
     DB[:posts].insert(:title => params[:title],
                       :date => DateTime.now,
-                      :parent_id => params[:parent_id])
+                      :parent_id => params[:parent_id],
+                      :deleted => false)
     redirect back
   end
   get '/del/:id' do |id|
@@ -49,7 +53,7 @@ class PrivateMicroBlog < Sinatra::Base
       post = DB[:posts].where(:id => id).first
       if post
         DB[:posts].filter('parent_id = ?', id).update(:parent_id => post[:parent_id])
-        DB[:posts].filter('id = ?', id).delete
+        DB[:posts].filter('id = ?', id).update(:deleted => true)
         redirect back
       end
       "No such post"
