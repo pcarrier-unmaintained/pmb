@@ -17,7 +17,7 @@ end
 
 DB[:posts].insert(:title => "mb created", :date => DateTime.now, :parent_id => nil) unless DB[:posts].count > 0
 
-class MicroBlog < Sinatra::Base
+class PrivateMicroBlog < Sinatra::Base
   helpers do
     def display(post)
       haml :post, :locals => {
