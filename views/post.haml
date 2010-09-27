@@ -1,8 +1,8 @@
 %li
   .date
     = post[:date]
-  = post[:title]
-  %a{:href => "/del/#{post[:id]}"}
+  %span.title= post[:title]
+  %a{:href => "/del/#{post[:id]}", :title => 'delete'}
     ￩
   - if current(post)
     %form{:method => 'post', :action => '/'}
@@ -10,7 +10,7 @@
       %input{:type => 'hidden', :name => 'parent_id', :value => post[:id]}
       %input{:type => 'submit', :value => 'add', :id => 'send'}
   - else
-    %a{:href => "?rt=#{post[:id]}"}
+    %a{:href => "?rt=#{post[:id]}", :title => 'reply'}
       ￬
   - if children.count > 0
     %ul
