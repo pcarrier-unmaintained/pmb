@@ -10,4 +10,6 @@ use Rack::Auth::Basic do |username, password|
   [username, password] == ['user','pass']
 end
 
+set :haml, { :ugly => true }
+
 run PrivateMicroBlog.new
