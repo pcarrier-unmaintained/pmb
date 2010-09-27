@@ -46,7 +46,7 @@ class MicroBlog < Sinatra::Base
       "Cannot delete root"
     else
       post = DB[:posts].where(:id => id).first
-      if post:
+      if post
         DB[:posts].filter('parent_id = ?', id).update(:parent_id => post[:parent_id])
         DB[:posts].filter('id = ?', id).delete
         redirect back
