@@ -2,9 +2,18 @@
 !!! Basic
 %html{html_attrs('fr-fr')}
   %head
-    %title mb
-    %script{:type => 'text/javascript', :src => '/jquery.js'}
-    %body
-      #content
-        %ul
-          = display(root)
+    %title mb, a private micro-blog
+    %style
+      html{font-family:"Helvetica Neue",Helvetica,arial,sans-serif;font-size:10pt;color:#fff;background-color:#444;}
+      input{color:#fff;background-color:#000;border:2px solid #222;}
+      \#input{width:30em;padding:0;}
+      \.date{float:right;background-color:#222;}
+      \#license{color:#888;border-top:1px solid #888;padding-top:2px;}
+      a,a:visited{color:red;text-decoration:none;}
+  %body
+    %h1 mb, a private micro-blog
+    %ul
+      = display(root)
+    %pre#license~ "Copyright (c) 2010, Pierre Carrier <perso@gcarrier.fr>\nPermission to use, copy, modify, and/or distribute this software for any\npurpose with or without fee is hereby granted, provided that the above\ncopyright notice and this permission notice appear in all copies."
+    %script{:type => 'text/javascript'}
+      document.getElementById('input').focus();

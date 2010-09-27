@@ -1,15 +1,18 @@
 %li
-  %span.date= post[:date]
-  %span.title= post[:title]
-  %links
-    %a.reply{:href => "?rt=#{post[:id]}"}
-      [reply]
+  .date
+    = post[:date]
+  = post[:title]
+  %a{:href => "/del/#{post[:id]}"}
+    ￩
   - if current(post)
-    %br/
-    %form{:method => "post", :action => "/"}
-      %input{:type => "text", :name => "title"}
-      %input{:type => "submit", :value => "add"}
+    %form{:method => 'post', :action => '/'}
+      %input{:type => 'text', :name => 'title', :id => 'input'}
+      %input{:type => 'hidden', :name => 'parent_id', :value => post[:id]}
+      %input{:type => 'submit', :value => 'add', :id => 'send'}
+  - else
+    %a{:href => "?rt=#{post[:id]}"}
+      ￬
   - if children.count > 0
-    %li
+    %ul
       - children.each do |p|
         = display(p)
